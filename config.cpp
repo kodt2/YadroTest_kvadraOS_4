@@ -2,6 +2,10 @@
 #include <unordered_set>
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <fstream>
+#include <iostream>
+
+#include "config.h"
 
 
 namespace media_scanner {
@@ -12,6 +16,8 @@ namespace media_scanner {
         }
 
     }
+
+    ConfigManager::ConfigManager() {}
 
     bool ConfigManager::load(const std::string& config_path){
         using json = nlohmann::json;

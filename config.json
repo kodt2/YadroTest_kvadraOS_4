@@ -1,7 +1,7 @@
 {
   "extensions": {
     "audio": [".mp3", ".wav", ".ogg", ".m4a", ".flac", ".alac", ".ape", ".aac", ".wma", ".mid", ".midi", ".opus", ".amr"],
-    "video": [".mp4", ".mkv", ".avi", ".mov", ".webm", ".flv", ".vob", ".wmv", ".mpeg", ".mpg", ".m4v", ".3gp", ".ts"],
+    "video": [".mp4", ".mkv", ".avi", ".mov", ".webm", ".flv", ".vob", ".wmv", ".mpeg", ".mpg", ".m4v", ".3gp"],
     "images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".heic", ".svg", ".avif", ".tiff", ".tif", ".psd", ".raw", ".cr2"]
   }
 }

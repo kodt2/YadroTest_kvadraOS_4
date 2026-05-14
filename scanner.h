@@ -4,19 +4,15 @@
 #include <filesystem>
 #include <vector>
 #include <string>
+#include <nlohmann/json.hpp>
 
 #include "config.h"
 
 namespace media_scanner {
     class Scanner{
     public:
-        struct FoundFiles{
-            std::vector<std::string> found_audio;
-            std::vector<std::string> found_video;
-            std::vector<std::string> found_images;
-        };
 
-        FoundFiles scan_directory(const ConfigManager& config) const;
+        nlohmann::json scan_directory(const ConfigManager& config) const;
 
     };
 } //media_scanner

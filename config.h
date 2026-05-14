@@ -1,0 +1,40 @@
+#ifndef CONFIG_MANAGER_HPP
+#define CONFIG_MANAGER_HPP
+
+#include <string>
+#include <unordered_set>
+#include <fstream>
+#include <nlohmann/json.hpp>
+
+namespace media_scanner {
+
+    class ConfigManager {
+    public:
+        struct Extensions {
+        std::unordered_set<std::string> audio;
+        std::unordered_set<std::string> video;
+        std::unordered_set<std::string> images;
+        };
+
+        ConfigManager(const std::string& config_path);
+        ConfigManager();
+
+        const Extensions& get_extensions() const { return m_extensions; }
+        int get_scan_interval() const { return m_scan_interval_ms; }
+        int get_server_port() const { return m_server_port; }
+        const std::string& get_target_directory() const { return m_target_directory; }
+
+        void set_scan_interval(int ms) { m_scan_interval_ms = ms; }
+        void set_target_directory(const std::string& path) { m_target_directory = path; }
+
+        private:
+            bool load(const std::string& config_path);
+
+            Extensions m_extensions;
+            int m_scan_interval_ms = 5000;
+            int m_server_port = 1234;
+            std::string m_target_directory;
+    };
+} // namespace media_scanner
+
+#endif // CONFIG_MANAGER_HPP

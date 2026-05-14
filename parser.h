@@ -12,7 +12,7 @@ namespace media_scanner {
             std::string target_dir = ".";
         };
 
-        CmdArgs parse_cmd_args(const int size,const char* cmd_args) const;
+        CmdArgs parse_cmd_args(const int size,const char* cmd_args[]) const;
 
         struct FileInfo{
             std::string file_name;
@@ -21,7 +21,7 @@ namespace media_scanner {
 
         static FileInfo parse_file_name(const std::string& name);
     private:
-        std::vector<std::string> prepare_cmd_args(const int size, const char* cmd_args) const;
+        std::vector<std::string> prepare_cmd_args(const int size, const char* cmd_args[]) const;
         bool validate_args(const std::string& flag, const std::string& arg) const;
     };
 }

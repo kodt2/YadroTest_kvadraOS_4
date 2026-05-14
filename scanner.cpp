@@ -4,15 +4,19 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <nlohmann/json.hpp>
 
 #include "scanner.h"
 #include "config.h"
 
 namespace fs = std::filesystem;
 namespace media_scanner {
-    Scanner::FoundFiles Scanner::scan_directory(const ConfigManager& config) const {
+    nlohmann::json Scanner::scan_directory(const ConfigManager& config) const {
 
-        FoundFiles found;
+        nlohmann::json result;
+        result["audio"] = nlohmann::json::array();
+        result["video"] = nlohmann::json::array();
+        result["images"] = nlohmann::json::array();
 
         std::string target_dir = config.get_target_directory();
         const auto& ext = config.get_extensions();
@@ -28,13 +32,15 @@ namespace media_scanner {
                     std::string ext_str = entry.path().extension().string();
                     std::transform(ext_str.begin(), ext_str.end(), ext_str.begin(),
                             [](unsigned char c) { return std::tolower(c); });
+                    
+                    std::string filename = entry.path().filename().string();
 
                     if (ext.audio.count(ext_str)) {
-                        found.found_audio.push_back(entry.path().filename().string());
+                        result["audio"].push_back(filename);
                     } else if (ext.video.count(ext_str)) {
-                        found.found_video.push_back(entry.path().filename().string());
+                        result["video"].push_back(filename);
                     } else if (ext.images.count(ext_str)) {
-                        found.found_images.push_back(entry.path().filename().string());
+                        result["images"].push_back(filename);
                     }
                 }
             }
@@ -42,6 +48,6 @@ namespace media_scanner {
             std::cerr << "Filesystem error: " << e.what() << std::endl;
             throw;
         }
-        return found;
+        return result;
     }
 } // media_scanner

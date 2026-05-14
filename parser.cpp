@@ -2,14 +2,15 @@
 #include <filesystem>
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 namespace media_scanner {
-    Parser::FileInfo Parser::parse_file_name(const std::string& name) {
+    Parser::FileInfo Parser::parse_file_name(const std::string& name){
         std::filesystem::path p(name);
         return { p.stem().string(), p.extension().string() };
     }
-    
-    std::vector<std::string> Parser::prepare_cmd_args(const int size, char* cmd_args[]){
+
+    std::vector<std::string> Parser::prepare_cmd_args(const int size, const char* cmd_args[]) const{
         std::vector<std::string> res;
         for (int i=0;i<size;i++){
             res.push_back(std::string(cmd_args[i]));
@@ -17,7 +18,7 @@ namespace media_scanner {
         return res;
     }
 
-    Parser::CmdArgs Parser::parse_cmd_args(const int size, char* cmd_args[]){
+    Parser::CmdArgs Parser::parse_cmd_args(const int size, const char* cmd_args[]) const{
         CmdArgs res;
 
         std::vector<std::string> cmd_strings = prepare_cmd_args(size, cmd_args);
