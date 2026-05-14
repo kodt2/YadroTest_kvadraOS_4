@@ -1,6 +1,6 @@
 #include <httplib.h>
 #include <nlohmann/json.hpp>
-#include "MediaServer.h"
+#include "server.h"
 
 namespace media_scanner {
 

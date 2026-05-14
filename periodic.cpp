@@ -2,7 +2,8 @@
 
 #include "config.h"
 #include "server.h"
-#include "periodic"
+#include "periodic.h"
+#include "scanner.h"
 
 namespace media_scanner {
     PeriodicScanner::PeriodicScanner(const ConfigManager& config, MediaServer& server)
@@ -29,7 +30,7 @@ namespace media_scanner {
     void PeriodicScanner::run() {
         Scanner scanner;
         while (running) {
-            nlohmann::json scan_res = scanner.scan(cfg.get_target_directory(), cfg.get_extensions());
+            nlohmann::json scan_res = scanner.scan_directory(cfg);
             srv.update_data(scan_res);
             std::this_thread::sleep_for(std::chrono::milliseconds(cfg.get_scan_interval()));
         }

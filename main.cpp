@@ -6,6 +6,8 @@
 #include "config.h"
 #include "parser.h"
 #include "scanner.h"
+#include "server.h"
+#include "periodic.h"
 
 using namespace media_scanner;
 
@@ -32,11 +34,11 @@ using namespace media_scanner;
                 }
             }
             
-            Scanner scanner;
-            auto files = scanner.scan_directory(config);
+            MediaServer server;
+            PeriodicScanner scanner(config, server);
 
-            std::cout << scanner.scan_directory(config) << std::endl;
-
+            scanner.start();
+            server.start(config.get_server_port());
 
         }
         catch(const std::exception& e){

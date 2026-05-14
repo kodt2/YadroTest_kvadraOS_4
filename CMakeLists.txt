@@ -26,7 +26,8 @@ add_executable(media_scanner
     config.cpp
     parser.cpp
     scanner.cpp
-    MediaServer.cpp
+    server.cpp
+    periodic.cpp
 )
 
 target_link_libraries(media_scanner
