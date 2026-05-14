@@ -2,12 +2,14 @@
 #include <nlohmann/json.hpp>
 #include <stdexcept>
 #include <iostream>
+#include <filesystem>
 
 #include "config.h"
 #include "parser.h"
 #include "scanner.h"
 #include "server.h"
 #include "periodic.h"
+#include "resolver.h"
 
 using namespace media_scanner;
 
@@ -22,15 +24,21 @@ using namespace media_scanner;
             if (!args.config_path.empty()) {
                 config = ConfigManager(args.config_path);
             }
+            else {
+                auto default_config = get_executable_dir().parent_path() / "config.json";
+                config = ConfigManager(default_config.string());
+            }
 
             config.set_scan_interval(args.scan_interval);
 
             if (!args.target_dir.empty()) {
-                config.set_target_directory(args.target_dir);
+            config.set_target_directory(args.target_dir);
             } else {
                 const char* home = std::getenv("HOME");
                 if (home) {
                     config.set_target_directory(home);
+                } else {
+                    config.set_target_directory(".");
                 }
             }
             

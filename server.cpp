@@ -21,7 +21,7 @@ namespace media_scanner {
     }
 
     void MediaServer::start(int port) {
-        svr.listen("0.0.0.0", port);
+        svr.listen("127.0.0.1", port);
     }
 
     void MediaServer::stop() {
